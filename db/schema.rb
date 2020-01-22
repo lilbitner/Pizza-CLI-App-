@@ -12,25 +12,25 @@
 
 ActiveRecord::Schema.define(version: 2020_01_21_213653) do
 
-  create_table "pizza_reviews", force: :cascade do |t|
-    t.integer "rating"
-    t.integer "user_id"
-    t.integer "pizza_id"
-    t.index ["pizza_id"], name: "index_pizza_reviews_on_pizza_id"
-    t.index ["user_id"], name: "index_pizza_reviews_on_user_id"
-  end
-
   create_table "pizzas", force: :cascade do |t|
     t.string "restaurant_name"
     t.string "menu_name"
     t.string "pizza_category"
+    t.string "pizza_ingredients"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.integer "user_id"
+    t.integer "pizza_id"
+    t.index ["pizza_id"], name: "index_reviews_on_pizza_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.integer "pizza_expertise"
   end
 
-  add_foreign_key "pizza_reviews", "pizzas"
-  add_foreign_key "pizza_reviews", "users"
+  add_foreign_key "reviews", "pizzas"
+  add_foreign_key "reviews", "users"
 end
