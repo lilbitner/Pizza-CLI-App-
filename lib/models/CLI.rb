@@ -74,6 +74,9 @@ class CLI
             end
         end
    end 
+
+   def delete_a_pizza_review
+    choice = Prompt.ask("What is the review title of the pizza review you would like to update?".colorize(:blue))
    
    
 
@@ -90,13 +93,13 @@ class CLI
 #   end 
 # #     
 
-# #   def update_a_pizza_review 
-#         choice = Prompt.ask("What is the menu name of the pizza review you would like to update?".colorize(:blue))
-#         pizza_choice = Pizza.find_by(menu_name: choice) 
-#         review_choice = Review.find_by(pizza: pizza_choice) 
-#         new_rating = Prompt.ask("What is the new rating for this pizza?".colorize(:red))
-#         review_choice.update(rating: new_rating)
-#     end 
+# # #   def update_a_pizza_review 
+# #         choice = Prompt.ask("What is the review title of the pizza review you would like to update?".colorize(:blue))
+# #         review_choice = Review.find_by(title: choice)
+#           new_rating = Prompt.ask("What is the new rating for this pizza?".colorize(:red))
+#           review_choice.update(rating: new_rating)
+# #     end 
+
 
 
 
