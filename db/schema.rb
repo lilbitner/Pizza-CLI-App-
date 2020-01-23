@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_213653) do
+ActiveRecord::Schema.define(version: 2020_01_23_204347) do
 
   create_table "pizzas", force: :cascade do |t|
     t.string "restaurant_name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_01_21_213653) do
     t.integer "rating"
     t.integer "user_id"
     t.integer "pizza_id"
+    t.string "title"
     t.index ["pizza_id"], name: "index_reviews_on_pizza_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
