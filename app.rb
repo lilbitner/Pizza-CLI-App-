@@ -1,27 +1,14 @@
-require 'colorize' 
-require 'tty-prompt'
-prompt = TTY::Prompt.new
+require_relative 'config/environment'
+# prompt = TTY::Prompt.new
 
-puts "Welcome to PizzaWorld!".colorize(:blue)
-puts "Where pizza lovers come to play".colorize(:red)
+CLI.new.welcome_menu 
 
-prompt.yes?("Have you been here before?") 
-  if gets.chomp == "no" 
-    puts "Lets get ready for some pizza"
-    else puts "YAY welcome back"
-end 
+# CLI.new.main_menu 
 
-system "clear"
-puts 
-puts "|_  )"
-puts " / / "
-puts "/___|"
-sleep(1)
+# CLI.new.write_pizza_review 
 
 
 
-binding.pry 
 
 
 
-  

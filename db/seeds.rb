@@ -1,6 +1,6 @@
 Review.destroy_all 
-User.destory_all 
-Pizza.destory_all 
+User.destroy_all 
+Pizza.destroy_all 
 
 
 pizza1 = Pizza.create(restaurant_name: "Two Fisted Mario's Pizza", menu_name: "Mario's Special", pizza_category: "NY Style", pizza_ingredients: "pepperoni, italian sausage, meatballs, green peppers, onions, mushrooms, black & green olives, extra cheese")
@@ -46,17 +46,17 @@ user7 = User.create(name: "Josh")
 
 
 
-review1 = Review.create(4, user_id: user1, pizza_id: pizza15)
-review2 = Review.create(6, user4, pizza4)
-review3 = Review.create(10, user5, pizza11)
-review4 = Review.create(3, user7, pizza8)
-review5 = Review.create(4, user3, pizza8)
-review6 = Review.create(9, user3, pizza2)
-review7 = Review.create(1, user2, pizza14)
-review8 = Review.create(8, user6, pizza7)
-review9 = Review.create(9, user1, pizza7)
+review1 = Review.create(rating: 4, user: user1, pizza: pizza15, title: "review1")
+review2 = Review.create(rating: 6, user: user4, pizza: pizza4, title: "review2")
+review3 = Review.create(rating: 10, user: user5, pizza: pizza11, title: "review3")
+review4 = Review.create(rating: 3, user: user7, pizza: pizza8, title: "review4")
+review5 = Review.create(rating: 4, user: user3, pizza: pizza8, title: "review5")
+review6 = Review.create(rating: 9, user: user3, pizza: pizza2, title: "review6")
+review7 = Review.create(rating: 1, user: user2, pizza: pizza14, title: "review7")
+review8 = Review.create(rating: 8, user: user6, pizza: pizza7, title: "review8")
+review9 = Review.create(rating: 9, user: user1, pizza: pizza7, title: "review9")
+review10 = Review.create(rating:8, user: user6, pizza: pizza1, title: "review10")
 
-#binding.pry 
 
 
 

@@ -5,21 +5,7 @@ class Review < ActiveRecord::Base
     # def review_score 
     # 
     
- 
-    def user_reviews
-        Review.all.select do |review|
-            review.user == self 
-        end 
-    end 
 
-
-    def delete_review(pizza)
-        user_reviews.select do |review|
-            if review.pizza == pizza
-        review.delete 
-            end 
-        end  
-    end 
 
     # def total_pizza_reviews
     #     Reviews.all.select do |review|
