@@ -5,10 +5,13 @@ class CLI
     def welcome_menu 
         puts "Welcome to PizzaWorld!".colorize(:yellow)
         puts "Where pizza lovers come to play".colorize(:red)
-        name = Prompt.ask("What's your name?".colorize(:blue)) 
+        name = Prompt.ask("What's your name?".colorize(:blue)) do |q|
+            q.modify :up, :chomp 
+        end 
+  
         @new_user = User.create(name: name)
         puts "You're ready to get started #{new_user.name}!".colorize(:orange)
-        main_menu 
+        main_menu  
     end 
     
     def main_menu 
@@ -17,7 +20,8 @@ class CLI
             menu.choice name: "Read a pizza review", value: 2
             menu.choice name: "Delete a pizza review", value: 3
             menu.choice name: "Update a pizza review", value: 4  
-            menu.choice name: "Leave this app and go eat pizza", value: 5     
+            menu.choice name: "Leave this app and go eat pizza", value: 5       
+   
         end 
         choices(action)
     end 
@@ -32,32 +36,30 @@ class CLI
         elsif action == 4 
             update_a_pizza_review
         elsif action == 5 
-            puts "Goodbye!" 
+            puts "Goodbye!".colorize(:blue)
             exit 
         else 
-            put "That is not an option, choose another"
+            put "That is not an option, choose another".colorize(:yellow)
             main_menu
         end 
     end
            
-    def write_a_pizza_review 
-        choice = Prompt.ask("What is the menu name of the pizza you would like to review?".chomp.colorize(:red)) do |q|
-            q.modify :down, :chomp
-            end.strip 
-        pizza_choice = Pizza.find_by(menu_name: choice)
-            if pizza_choice == nil
+    
+    def write_a_pizza_review
+        choice = Prompt.ask("What is the menu name of the pizza you would like to review?".colorize(:red)) do |q|
+            q.modify :down 
+        end.strip  
+            pizza_choice = Pizza.find_by(menu_name: choice)
+            if pizza_choice == nil 
                 puts "not a valid choice"
                 write_a_pizza_review
             end 
-            score = Prompt.ask("What is the rating of the pizza on a scale of 1 to 10?".colorize(:blue)) do |q|
-                q.modify :down, :chomp
-            end.strip 
-        review_title = Prompt.ask("Please name your awesome review!".colorize(:teal)) do |q|
-            q.modify :down, :chomp
-            end.strip
-
-        new_user.reviews.create(rating: score, pizza: pizza_choice,title: review_title) 
-        puts ("New review created!")
+        score = Prompt.ask("What is the rating of the pizza on a scale of 1 to 10?".colorize(:blue))
+        review_title = Prompt.ask("What is the title of the review?".colorize(:green)) do |q|
+            q.modify :down
+        end.strip 
+            new_user.reviews.create(rating: score, pizza: pizza_choice, title: review_title) 
+                puts ("New review created!")
         main_menu
     end 
  
