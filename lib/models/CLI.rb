@@ -5,11 +5,13 @@ class CLI
     def welcome_menu 
         puts "Welcome to PizzaWorld!".colorize(:yellow)
         puts "Where pizza lovers come to play".colorize(:red)
-        name = Prompt.ask("What's your name?".colorize(:blue)) 
+        name = Prompt.ask("What's your name?".colorize(:blue)) do |q|
+            q.modify :up, :chomp 
+        end 
   
         @new_user = User.create(name: name)
         puts "You're ready to get started #{new_user.name}!".colorize(:orange)
-        main_menu 
+        main_menu  
     end 
     
     def main_menu 
@@ -18,7 +20,8 @@ class CLI
             menu.choice name: "Read a pizza review", value: 2
             menu.choice name: "Delete a pizza review", value: 3
             menu.choice name: "Update a pizza review", value: 4  
-            menu.choice name: "Leave this app and go eat pizza", value: 5     
+            menu.choice name: "Leave this app and go eat pizza", value: 5       
+   
         end 
         choices(action)
     end 
@@ -33,57 +36,90 @@ class CLI
         elsif action == 4 
             update_a_pizza_review
         elsif action == 5 
-            puts "Goodbye!" 
+            puts "Goodbye!".colorize(:blue)
             exit 
         else 
-            put "That is not an option, choose another"
+            put "That is not an option, choose another".colorize(:yellow)
             main_menu
         end 
     end
            
-    def write_a_pizza_review 
-        choice = Prompt.ask("What is the menu name of the pizza you would like to review?".chomp.colorize(:red))
-        pizza_choice = Pizza.find_by(menu_name: choice)
+    
+    def write_a_pizza_review
+        choice = Prompt.ask("What is the menu name of the pizza you would like to review?".colorize(:red)) do |q|
+            q.modify :down 
+        end.strip  
+            pizza_choice = Pizza.find_by(menu_name: choice)
         score = Prompt.ask("What is the rating of the pizza on a scale of 1 to 10?".colorize(:blue))
-        new_user.reviews.create(rating: score, pizza: pizza_choice) 
-        puts ("New review created!")
+        review_title = Prompt.ask("What is the title of the review?".colorize(:green)) do |q|
+            q.modify :down
+        end.strip 
+            new_user.reviews.create(rating: score, pizza: pizza_choice, title: review_title) 
+                puts ("New review created!")
         main_menu
     end 
  
 
    def read_pizza_reviews
-    choice = Prompt.ask("What is the menu name of the pizza you would like to read all reviews for?".colorize(:blue)) #refactor
-    pizza_choice = Pizza.find_by(menu_name: choice) #downcase 
-    pizza_choice.reviews.map do |review|
-            puts "Title: #{review.title}"
-            puts "Rating: #{review.rating}"
-            puts "Pizza Restaurant: #{pizza_choice.restaurant_name}"
-        end  
-   end 
-
-  def delete_a_pizza_review 
-    choice = Prompt.ask("What is the name of the restauraunt you would like to delete a review for?".chomp.colorize(:blue)) #refactor
-        user_pizzas = new_user.reviews.select do |review|
-        review.pizza.restaurant_name == choice
-        user_pizzas.reviews.map do |review| 
-            binding.pry 
+    choice = Prompt.ask("What is the menu name of the pizza you would like to read all reviews for?".colorize(:blue)) do |q|
+        q.modify :down 
+    end.strip 
+    pizza_choice = Pizza.find_by(menu_name: choice) 
+            pizza_choice.reviews.map do |review|
                 puts "Title: #{review.title}"
                 puts "Rating: #{review.rating}"
-                puts "Pizza Restaurant: #{choice}"
-                puts "Pizza Name: #{pizza.menu_name}" 
-            end
-        end
+                puts "Pizza Restaurant: #{pizza_choice.restaurant_name}"
+            end  
+        main_menu
    end 
 
-   def delete_a_pizza_review
-    choice = Prompt.ask("What is the review title of the pizza review you would like to update?".colorize(:blue))
+
+#    def review_titles 
+#         # choice = Prompt.ask("What is the review title of the pizza review you would like to delete?".colorize(:blue))
+#         @review_choice = Review.find_by(title: choice)
+#    end 
    
+   
+   def delete_a_pizza_review
+        choice = Prompt.ask("What is the review title of the pizza review you would like to delete?".colorize(:blue)) do |q|
+            q.modify :down
+        end.strip 
+        review_choice = Review.find_by(title: choice)
+        answer = Prompt.ask("are you sure you want to delete")
+            if answer == "yes"
+                review_choice.destroy
+                puts "Review deleted!".colorize(:light_blue) 
+                main_menu
+            else main_menu
+         end 
+    end
    
 
-   
-   
-   
-   
+    def update_a_pizza_review 
+        choice = Prompt.ask("What is the review title of the pizza review you would like to update?".colorize(:blue)) do |q|
+            q.modify :down
+        end.strip 
+            review_choice = Review.find_by(title: choice)
+            new_rating = Prompt.ask("What is the new rating for this pizza?".colorize(:red))
+            review_choice.update(rating: new_rating)
+                puts "Thanks for keeping our reviews fresh!".colorize(:blue)
+        main_menu 
+     end 
+
+
+
+    #  system "clear"
+    #  puts "------------"
+    #  puts "\__________/"
+    #  puts  "|       |"
+    #  puts   "|     |"
+    #  puts    "|   |"
+    #  puts      "|"   
+    #  sleep(1)  
+
+
+
+
 #     user_reviews = new_user.reviews 
 #     choice = Prompt.ask("What is the menu name of the pizza review you would like to delete?".colorize(:light_blue))
 #     pizza_choice = Pizza.find_by(menu_name: choice)
@@ -101,7 +137,19 @@ class CLI
 # #     end 
 
 
-
+#   def delete_a_pizza_review 
+#     choice = Prompt.ask("What is the name of the restauraunt you would like to delete a review for?".chomp.colorize(:blue)) #refactor
+#         user_pizzas = new_user.reviews.select do |review|
+#         review.pizza.restaurant_name == choice
+#         user_pizzas.reviews.map do |review| 
+#             binding.pry 
+#                 puts "Title: #{review.title}"
+#                 puts "Rating: #{review.rating}"
+#                 puts "Pizza Restaurant: #{choice}"
+#                 puts "Pizza Name: #{pizza.menu_name}" 
+#             end
+#         end
+#    end 
 
 
   
