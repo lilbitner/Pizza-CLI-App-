@@ -16,6 +16,10 @@ FEATURES
 4. update a pizza review 
 5. leave program 
 
+TECH 
+
+Ruby 2.6.1p33 
+
 TESTS 
 
 run ruby app.rb in command-line 
@@ -31,7 +35,12 @@ FUTURE FEATURES
 5. A method to restrict other users from deleting reviews by others 
 
 
-GEMS needed 
+INSTALLATION 
+
+Fork and clone down: 
+https://github.com/lilbitner/Pizza-CLI-App- 
+
+DEPENDENCIES 
 "sinatra-activerecord"
 "sinatra"
 "sqlite3"
