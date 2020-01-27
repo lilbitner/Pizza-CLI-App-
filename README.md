@@ -1,5 +1,3 @@
-PIZZA CLI APP 
-
 MOTIVATION
 
 We both enjoy consuming pizza and we have strong opinions on what constitutes "good" pizza. We figured a database of actual Denver pizzas and reviews corresponding to them was needed. 
@@ -24,6 +22,9 @@ TESTS
 
 run ruby app.rb in command-line 
 Follow CLI prompts 
+
+
+![](Project_1_Recording .2020-01-27 15_11_31.gif)
 
 
 FUTURE FEATURES 
@@ -53,3 +54,4 @@ DEPENDENCIES
 
 THANK YOU
 Flatiron School in Denver!
+
