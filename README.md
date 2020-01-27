@@ -24,7 +24,7 @@ run ruby app.rb in command-line
 Follow CLI prompts 
 
 
-![](Project_1_Recording .2020-01-27 15_11_31.gif)
+![](Project.gif)
 
 
 FUTURE FEATURES 
